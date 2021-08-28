@@ -1,12 +1,12 @@
 import {NextFunction, Request, Response} from 'express'
 import  mongoose  from 'mongoose';
-import Beverage from '../model/beverage.model'
+import Option from '../model/opton.model'
 
 
 
-const updateBeverage = (req: Request, res: Response, next: NextFunction) => {
+const updateOption = (req: Request, res: Response, next: NextFunction) => {
     let id = req.params.id;
-    Beverage.findByIdAndUpdate(id,req.body)
+    Option.findByIdAndUpdate(id,req.body)
     .exec()
     .then((result) =>{
         console.log(result)
@@ -25,19 +25,19 @@ const updateBeverage = (req: Request, res: Response, next: NextFunction) => {
 
 
 
-const createBeverage = (req: Request, res: Response, next: NextFunction) => {
+const createOption = (req: Request, res: Response, next: NextFunction) => {
     let {name, price} = req.body;
 
-    const beverage = new Beverage({
+    const option = new Option({
         _id: new mongoose.Types.ObjectId(),
         name,
         price
     })
 
-    return beverage.save()
+    return option.save()
     .then(result => {
         return res.status(201).json({
-            beverage: result
+            option: result
         })
     })
     .catch(error => {
@@ -48,13 +48,13 @@ const createBeverage = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-const deleteBeverage = (req: Request, res: Response, next: NextFunction) => {
+const deleteOption = (req: Request, res: Response, next: NextFunction) => {
     let id = req.params.id;
     console.log(id)
-    Beverage.deleteOne({_id: id}).exec().then((result) =>{
+    Option.deleteOne({_id: id}).exec().then((result) =>{
         console.log(result)
         return res.status(200).json({
-            message: "Successfully deleted the beverage name "+result
+            message: "Successfully deleted the Option name "+result
             
         })
     })
@@ -68,10 +68,10 @@ const deleteBeverage = (req: Request, res: Response, next: NextFunction) => {
 }
 
 
-const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
+const getOptionByID = (req: Request, res: Response, next: NextFunction) => {
 
     
-    Beverage.findById(req.params.id, (err: any , result: any)=>{
+    Option.findById(req.params.id, (err: any , result: any)=>{
         console.log(result)
         if(err){
             return res.status(500).json({
@@ -80,7 +80,7 @@ const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
             })
         }else{
             return res.status(200).json({
-                beverage: result
+                Option: result
                 
             })
         }
@@ -92,12 +92,12 @@ const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
 
 
 
-const getAllBeverage = (req: Request, res: Response, next: NextFunction) => {
-   Beverage.find()
+const getAllOption = (req: Request, res: Response, next: NextFunction) => {
+   Option.find()
    .exec()
    .then((result) =>{
        return res.status(200).json({
-           beverage: result,
+           option: result,
            count: result.length
        })
    })
@@ -110,4 +110,4 @@ const getAllBeverage = (req: Request, res: Response, next: NextFunction) => {
     
 }
 
-export default {getAllBeverage, createBeverage, getBeverageByID,deleteBeverage,updateBeverage}
+export default {getAllOption, createOption, getOptionByID,deleteOption,updateOption}

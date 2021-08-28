@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import http from 'http'
 import bodyParser from 'body-parser';
 import beverageRoutes from './routes/beverage.routes'
+import optionRoutes from './routes/option.routes'
 
 const NAMESPACE = 'app'
 
@@ -28,6 +29,8 @@ app.use(bodyParser.json());
 
 
 app.use('/api/beverages', beverageRoutes)
+app.use('/api/options', optionRoutes)
+app.use('/api/carts', optionRoutes)
 
 
 app.listen(config.server.port || 8080, () =>{

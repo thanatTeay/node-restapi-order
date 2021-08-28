@@ -1,12 +1,12 @@
 import {NextFunction, Request, Response} from 'express'
 import  mongoose  from 'mongoose';
-import Beverage from '../model/beverage.model'
+import Cart from '../model/cart.model'
 
 
 
-const updateBeverage = (req: Request, res: Response, next: NextFunction) => {
+const updateCart = (req: Request, res: Response, next: NextFunction) => {
     let id = req.params.id;
-    Beverage.findByIdAndUpdate(id,req.body)
+    Cart.findByIdAndUpdate(id,req.body)
     .exec()
     .then((result) =>{
         console.log(result)
@@ -25,19 +25,19 @@ const updateBeverage = (req: Request, res: Response, next: NextFunction) => {
 
 
 
-const createBeverage = (req: Request, res: Response, next: NextFunction) => {
+const createCart = (req: Request, res: Response, next: NextFunction) => {
     let {name, price} = req.body;
 
-    const beverage = new Beverage({
+    const cart = new Cart({
         _id: new mongoose.Types.ObjectId(),
         name,
         price
     })
 
-    return beverage.save()
+    return cart.save()
     .then(result => {
         return res.status(201).json({
-            beverage: result
+            cart: result
         })
     })
     .catch(error => {
@@ -48,13 +48,13 @@ const createBeverage = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-const deleteBeverage = (req: Request, res: Response, next: NextFunction) => {
+const deleteCart = (req: Request, res: Response, next: NextFunction) => {
     let id = req.params.id;
     console.log(id)
-    Beverage.deleteOne({_id: id}).exec().then((result) =>{
+    Cart.deleteOne({_id: id}).exec().then((result) =>{
         console.log(result)
         return res.status(200).json({
-            message: "Successfully deleted the beverage name "+result
+            message: "Successfully deleted the Cart name "+result
             
         })
     })
@@ -68,10 +68,10 @@ const deleteBeverage = (req: Request, res: Response, next: NextFunction) => {
 }
 
 
-const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
+const getCartByID = (req: Request, res: Response, next: NextFunction) => {
 
     
-    Beverage.findById(req.params.id, (err: any , result: any)=>{
+    Cart.findById(req.params.id, (err: any , result: any)=>{
         console.log(result)
         if(err){
             return res.status(500).json({
@@ -80,7 +80,7 @@ const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
             })
         }else{
             return res.status(200).json({
-                beverage: result
+                cart: result
                 
             })
         }
@@ -92,12 +92,12 @@ const getBeverageByID = (req: Request, res: Response, next: NextFunction) => {
 
 
 
-const getAllBeverage = (req: Request, res: Response, next: NextFunction) => {
-   Beverage.find()
+const getAllCart = (req: Request, res: Response, next: NextFunction) => {
+   Cart.find()
    .exec()
    .then((result) =>{
        return res.status(200).json({
-           beverage: result,
+           cart: result,
            count: result.length
        })
    })
@@ -110,4 +110,4 @@ const getAllBeverage = (req: Request, res: Response, next: NextFunction) => {
     
 }
 
-export default {getAllBeverage, createBeverage, getBeverageByID,deleteBeverage,updateBeverage}
+export default {getAllCart, createCart, getCartByID,deleteCart,updateCart}

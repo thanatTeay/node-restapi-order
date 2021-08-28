@@ -1,6 +1,6 @@
 import {Document} from 'mongoose'
 
-export default interface IBeverage extends Document {
+export default interface ICart extends Document {
     name: string;
     price: number;
 }
