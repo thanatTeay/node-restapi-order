@@ -28,10 +28,13 @@ const updateBeverage = (req: Request, res: Response, next: NextFunction) => {
 const createBeverage = (req: Request, res: Response, next: NextFunction) => {
     let {name, price} = req.body;
 
+    //let option = optionController.getOptionByID(res:"61298c6c2c09f5d69b33a058")
+
     const beverage = new Beverage({
         _id: new mongoose.Types.ObjectId(),
         name,
         price
+
     })
 
     return beverage.save()

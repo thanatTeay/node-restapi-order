@@ -1,10 +1,11 @@
 import  mongoose, {Schema}  from "mongoose";
-import IOption from "../interface/option.interface";
+import ICart from "../interface/cart.interface";
 
-const OptionSchema = new Schema(
+const CartSchema = new Schema(
     {
-        name: {type: String, required: true},
-        price: {type: Number, required: true},
+        beverage: {type: Schema.Types.ObjectId, ref: 'Beverage', required: true},
+        quatity: {type: Number, required: true},
+        option: {type: Schema.Types.ObjectId, ref: 'Option'}
     },
     {
         timestamps: true
@@ -13,6 +14,6 @@ const OptionSchema = new Schema(
 
 
 
-const Option = mongoose.model<IOption>("Option", OptionSchema)
+const Cart = mongoose.model<ICart>("Cart", CartSchema)
 
-export default Option
+export default Cart
