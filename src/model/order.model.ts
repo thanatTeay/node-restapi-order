@@ -1,9 +1,18 @@
-import  mongoose  from "mongoose";
-import bcrypt from "bcrypt"
-import config  from "config";
+import  mongoose, {Schema}  from "mongoose";
+import IOrder from "../interface/order.interface";
 
-const OrderSchema = new mongoose.Schema(
+const OrderSchema = new Schema(
     {
-        
+        beverage: {type: Schema.Types.ObjectId, ref: 'Beverage', required: true},
+        quatity: {type: Number, required: true},
+    },
+    {
+        timestamps: true
     }
-)
+);
+
+
+
+const Order = mongoose.model<IOrder>("Order", OrderSchema)
+
+export default Order

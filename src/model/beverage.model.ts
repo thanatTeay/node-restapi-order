@@ -4,7 +4,8 @@ import IBeverage from "../interface/beverage.interface";
 const BeverageSchema = new Schema(
     {
         name: {type: String, required: true},
-        price: {type: Number, required: true}
+        price: {type: Number, required: true},
+        option: {type: Schema.Types.ObjectId, ref: 'Option'},
     },
     {
         timestamps: true

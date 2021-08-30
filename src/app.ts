@@ -1,10 +1,15 @@
 import express from 'express';
 import config from "./config/default"
 import mongoose from 'mongoose'
-import http from 'http'
+import cors from 'cors'
 import bodyParser from 'body-parser';
+import session from 'express-session';
 import beverageRoutes from './routes/beverage.routes'
 import optionRoutes from './routes/option.routes'
+import orderRoutes from './routes/order.routes'
+import cookieParser from 'cookie-parser';
+import passport from 'passport';
+
 
 const NAMESPACE = 'app'
 
@@ -22,15 +27,30 @@ app.use((req,res,next) =>{
     next()
 })
 
-
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(express.json());
+app.use(cors())
+app.use(
+    session({
+        secret: "secretcode",
+        resave: true,
+        saveUninitialized: true,
+    })
+)
+app.use(cookieParser())
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
+
 
 
 app.use('/api/beverages', beverageRoutes)
 app.use('/api/options', optionRoutes)
-app.use('/api/carts', optionRoutes)
+app.use('/api/orders', orderRoutes)
 
 
 app.listen(config.server.port || 8080, () =>{
