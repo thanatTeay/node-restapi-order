@@ -27,7 +27,7 @@ const updateOrder = (req: Request, res: Response, next: NextFunction) => {
 
 
 const createOrder = (req: Request, res: Response, next: NextFunction) => {
-    let {beverage, quatity} = req.body;
+    let {beverage, total} = req.body;
 
     /*Beverage.findById(beverage, (err: any , result: any)=>{
         console.log(result)
@@ -38,7 +38,7 @@ const createOrder = (req: Request, res: Response, next: NextFunction) => {
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),
         beverage,
-        quatity
+        total
 
     })
 

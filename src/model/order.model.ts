@@ -1,10 +1,16 @@
 import  mongoose, {Schema}  from "mongoose";
 import IOrder from "../interface/order.interface";
+import Beverage from "./beverage.model";
 
 const OrderSchema = new Schema(
     {
-        beverage: {type: Schema.Types.ObjectId, ref: 'Beverage', required: true},
-        quatity: {type: Number, required: true},
+        beverage: [{
+            name: String, price:Number, quatity: Number ,option: [{name: String, price: Number}]
+        }],
+        
+        total: {type: Number, required: true }
+
+        
     },
     {
         timestamps: true
